@@ -10,30 +10,24 @@
 */
 
 
-function handValue (hand) {
-  // function scoreHand(cards){
-
-  let container = [];
-  let total = 0;
-  let faceCard = ["J","Q","K"];
-  let sorted = hand.concat.apply(hand, aceOnly)
-  let aceOnly = [];
-  
-  for (i=0; i < sorted.length; i++){
-    if (sorted[i] <= 10) {
-      container.push(parseInt(sorted[i]));
-    }
-    else if (faceCard.indexOf(sorted[i]) >= 0) {
-      container.push(10);
-    }
-
-    function getTotal(container){
-      total = 0;
-      for (x = 0; x < container.length; x++) {
-        total = total + container[x];
+function handValue(hand) {
+  return hand.reduce((acc, val) => {
+    if (val === 'A') {
+      if (acc > 21 || (acc + 11) > 21) {
+        return acc + 1;
+      } else {
+        return acc + 11;
       }
+    } else if (val === 'K' || val === 'Q' || val === 'J') {
+      if (acc > 21 || (acc + 10) > 21) {
+        acc -= 10;
+      }
+      return acc + 10;
+    } else {
+      if (acc > 21) {
+        acc -= 10;
+      }
+      return acc + parseInt(val);
     }
-    console.log("Final: " + total);
-    return total;
-  }
-}
+  }, 0);
+};
