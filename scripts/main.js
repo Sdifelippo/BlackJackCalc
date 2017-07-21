@@ -24,8 +24,8 @@ function handValue(hand) {
       }
       return acc + 10;
     } else {
-      if (acc > 21) {
-        acc -= 10;
+      if (acc > 21 || (acc + 10) < 21) {
+        acc += 0;
       }
       return acc + parseInt(val);
     }
