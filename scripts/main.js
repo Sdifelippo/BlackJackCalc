@@ -9,25 +9,23 @@
    write your logic.
 */
 
-
 function handValue(hand) {
-  return hand.reduce((acc, val) => {
-    if (val === 'A') {
-      if (acc > 21 || (acc + 11) > 21) {
-        return acc + 1;
-      } else {
-        return acc + 11;
-      }
-    } else if (val === 'K' || val === 'Q' || val === 'J') {
-      if (acc > 21 || (acc + 10) > 21) {
-        acc -= 10;
-      }
-      return acc + 10;
-    } else {
-      if (acc > 21 || (acc + 10) < 21) {
-        acc += 0;
-      }
-      return acc + parseInt(val);
+  let output = 0;
+  for (var i = 0; i < hand.length; i++) {
+    if (hand[i] === "K" || hand[i] === "Q" || hand[i] === "J") {
+      output += 10;
+    } else if (hand[i] === "A") {
+      output += 1;
     }
-  }, 0);
-};
+    if (parseInt(hand[i]) > 1 || parseInt(hand[i]) < 11) {
+      output += parseInt(hand);
+    } else if (parseInt(hand[i]) <= 10) {
+      output += parseInt(hand[i]);
+    }
+    if (hand[i] === "A" && output <= 11) {
+      output += 10;
+    }
+
+ }
+  return output;
+}
