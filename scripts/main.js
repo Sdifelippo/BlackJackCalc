@@ -11,18 +11,17 @@
 
 function handValue(hand) {
   let output = 0;
-
-  for (let i = 0; i < hand.length; i++) {
-    if (hand[i] === "K" || hand[i] === "Q" || hand[i] === "J") {
-      output += 10;
-    } else if (hand[i] === "A") {
-      output += 1;
-    } else {
-    output += parseInt(hand[i]);
-      }
+  let result = hand.reduce((acc, val) => {
+    if (val === 'K' || val === 'Q' || val === 'J') {
+      return acc + 10;
+    } else if (val === 'A') {
+      output++;
+      return acc + 11;
     }
-    if (hand.includes ("A") && output <= 12 ) {
-        output += 10;
-    }
-  return output;
-}
+    return acc + parseInt(val);
+  }, 0);
+  for (output; output > 0 && result > 21; output--) {
+    result -= 10;
+  }
+  return result;
+};
